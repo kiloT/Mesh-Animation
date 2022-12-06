@@ -14,6 +14,11 @@ namespace CodeWriter.MeshAnimation
         [Required]
         [SerializeField]
         private MeshAnimationAsset meshAnimation = default;
+        
+        public MeshAnimationAsset Asset
+        {
+            get => meshAnimation;
+        }
 
         private MaterialPropertyBlock _propertyBlock;
 

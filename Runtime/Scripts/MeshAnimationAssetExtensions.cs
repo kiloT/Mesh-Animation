@@ -13,18 +13,7 @@ namespace CodeWriter.MeshAnimation
             float speed = 1f,
             float? normalizedTime = 0f)
         {
-            MeshAnimationAsset.AnimationData data = null;
-
-            foreach (var animationData in asset.animationData)
-            {
-                if (animationData.name != animationName)
-                {
-                    continue;
-                }
-
-                data = animationData;
-                break;
-            }
+            MeshAnimationAsset.AnimationData data = GetAnimationData(asset, animationName);
 
             if (data == null)
             {
@@ -40,6 +29,52 @@ namespace CodeWriter.MeshAnimation
 
             block.SetFloat(AnimationLoopProp, data.looping ? 1 : 0);
             block.SetVector(AnimationTimeProp, new Vector4(start, length, s, time));
+        }
+        
+        public static AnimationClip GetAnimationClip(this MeshAnimationAsset asset, int index)
+        {
+            if (asset.animationClips.Length <= index)
+            {
+                return null;
+            }
+            
+            return asset.animationClips[index];
+        }
+
+        public static AnimationClip GetAnimationClip(this MeshAnimationAsset asset, string animationName)
+        {
+            foreach (AnimationClip animationClip in asset.animationClips)
+            {
+                if (animationClip.name == animationName)
+                {
+                    return animationClip;
+                }
+            }
+
+            return null;
+        }
+        
+        public static MeshAnimationAsset.AnimationData GetAnimationData(this MeshAnimationAsset asset, int index)
+        {       
+            if (asset.animationData.Count <= index)
+            {
+                return null;
+            }
+            
+            return asset.animationData[index];
+        }
+        
+        public static MeshAnimationAsset.AnimationData GetAnimationData(this MeshAnimationAsset asset, string animationName)
+        {
+            foreach (var animationData in asset.animationData)
+            {
+                if (animationData.name == animationName)
+                {
+                    return animationData;
+                }
+            }
+
+            return null;
         }
     }
 }

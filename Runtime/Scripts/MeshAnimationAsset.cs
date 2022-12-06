@@ -72,7 +72,7 @@ namespace CodeWriter.MeshAnimation
         }
 
         [Serializable]
-        internal class AnimationData
+        public class AnimationData
         {
             public string name;
             public float startFrame;
@@ -81,9 +81,9 @@ namespace CodeWriter.MeshAnimation
             public bool looping;
         }
 
-        public bool IsInvalid => GetValidationMessage() != null;
+        internal bool IsInvalid => GetValidationMessage() != null;
 
-        public string GetValidationMessage()
+        internal string GetValidationMessage()
         {
             if (skin == null) return "Skin is required";
 
